@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react'
 import { fetchCollection, getApiEndpoint } from '../api.js'
 
 export default function Users() {
-  const endpoint = getApiEndpoint('users')
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+  const endpoint = codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev/api/users/`
+    : getApiEndpoint('users')
   const [users, setUsers] = useState([])
   const [status, setStatus] = useState('loading')
   const [error, setError] = useState('')

@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react'
 import { fetchCollection, formatDate, getApiEndpoint } from '../api.js'
 
 export default function Activities() {
-  const endpoint = getApiEndpoint('activities')
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+  const endpoint = codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev/api/activities/`
+    : getApiEndpoint('activities')
   const [activities, setActivities] = useState([])
   const [status, setStatus] = useState('loading')
   const [error, setError] = useState('')
